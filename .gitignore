@@ -1,0 +1,20 @@
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# local build caches
+/.next/
+/.vinext/
+/dist/
+/.wrangler/
+
+# misc
+.DS_Store
+
+# debug
+npm-debug.log*
+
+# local environment overrides
+.env*

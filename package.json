@@ -1,0 +1,21 @@
+{
+  "name": "pausearc-support",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "build": "node scripts/build-static-site.mjs",
+    "test": "npm run build && node --test tests/static-site.test.mjs",
+    "lint": "eslint scripts tests",
+    "check": "npm run lint && npm test",
+    "release:copy": "node scripts/create-release-copy.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.4",
+    "eslint": "9.39.4",
+    "globals": "16.4.0"
+  },
+  "type": "module"
+}

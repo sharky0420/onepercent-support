@@ -19,6 +19,11 @@ npm run check
 Der Build kopiert gemeinsame Assets, erzeugt alle HTML-Routen und schreibt
 `robots.txt`, `sitemap.xml`, `.nojekyll` sowie den 404-Fallback.
 
+`npm run release:copy` erstellt zusätzlich eine vollständig materialisierte
+Release-Kopie samt SHA-256-Manifest unter
+`/Users/eliaslanez/Library/Caches/pausearc-support-release`. Dieser Pfad liegt
+außerhalb des iCloud-synchronisierten Desktop-Ordners.
+
 Die Standardadresse ist:
 
 ```text
@@ -46,6 +51,7 @@ eintragen:
 ## Struktur
 
 - `scripts/build-static-site.mjs`: statischer Seitengenerator und Inhalte
+- `scripts/create-release-copy.mjs`: reproduzierbare lokale Release-Kopie
 - `src/site.css`: gemeinsames responsives Design
 - `public/`: unveränderte Bild- und Icon-Quellen
 - `docs/`: direkt von GitHub Pages auslieferbare Ausgabe
