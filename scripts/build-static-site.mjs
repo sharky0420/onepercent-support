@@ -9,16 +9,16 @@ const publicDirectory = path.join(projectRoot, "public");
 
 const supportEmail = "e.lanez2004@gmail.com";
 const appStoreId = "6801456354";
-const defaultSiteUrl = "https://sharky0420.github.io/pausearc-support";
+const defaultSiteUrl = "https://sharky0420.github.io/onepercent-support";
 const siteUrl = normalizeSiteUrl(
-  process.env.PAUSEARC_SITE_URL ?? defaultSiteUrl,
+  process.env.ONEPERCENT_SITE_URL ?? defaultSiteUrl,
 );
 const sitePath = `${new URL(siteUrl).pathname.replace(/\/$/, "")}/`;
 
 function normalizeSiteUrl(value) {
   const parsed = new URL(value);
   if (parsed.protocol !== "https:") {
-    throw new Error("PAUSEARC_SITE_URL must use HTTPS.");
+    throw new Error("ONEPERCENT_SITE_URL must use HTTPS.");
   }
   parsed.hash = "";
   parsed.search = "";
@@ -52,9 +52,9 @@ function header(links, currentPage) {
   return `
   <header class="site-header">
     <div class="shell header-inner">
-      <a class="brand" href="${links.home}" aria-label="PauseArc Startseite"${current("home")}>
+      <a class="brand" href="${links.home}" aria-label="onepercent Startseite"${current("home")}>
         ${brandMark()}
-        <span>PauseArc</span>
+        <span>onepercent</span>
       </a>
       <nav aria-label="Hauptnavigation">
         <a href="${links.support}"${current("support")}>Hilfe</a>
@@ -70,9 +70,9 @@ function footer(links) {
   <footer class="site-footer">
     <div class="shell footer-inner">
       <div>
-        <a class="brand footer-brand" href="${links.home}" aria-label="PauseArc Startseite">
+        <a class="brand footer-brand" href="${links.home}" aria-label="onepercent Startseite">
           ${brandMark()}
-          <span>PauseArc</span>
+          <span>onepercent</span>
         </a>
         <p>Pause the impulse.</p>
       </div>
@@ -81,7 +81,7 @@ function footer(links) {
         <a href="${links.privacy}">Datenschutz</a>
         <a href="mailto:${supportEmail}">Kontakt</a>
       </div>
-      <p class="copyright">© 2026 PauseArc · App Store ID ${appStoreId}</p>
+      <p class="copyright">© 2026 onepercent · App Store ID ${appStoreId}</p>
     </div>
   </footer>`;
 }
@@ -125,14 +125,14 @@ function layout({
   <link rel="stylesheet" href="${links.stylesheet}">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="de_DE">
-  <meta property="og:site_name" content="PauseArc">
+  <meta property="og:site_name" content="onepercent">
   <meta property="og:title" content="${title}">
   <meta property="og:description" content="${description}">
   <meta property="og:url" content="${canonicalUrl}">
   <meta property="og:image" content="${links.ogImage}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="PauseArc – Pause the impulse.">
+  <meta property="og:image:alt" content="onepercent – Pause the impulse.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${title}">
   <meta name="twitter:description" content="${description}">
@@ -150,9 +150,9 @@ ${footer(links)}
 }
 
 const homePage = layout({
-  title: "PauseArc – Pause the impulse.",
+  title: "onepercent – Pause the impulse.",
   description:
-    "PauseArc verbindet Apples Bildschirmzeit mit bewussten Pausen – privat, lokal und ohne Tracking.",
+    "onepercent verbindet Apples Bildschirmzeit mit bewussten Pausen – privat, lokal und ohne Tracking.",
   route: "",
   depth: 0,
   currentPage: "home",
@@ -161,7 +161,7 @@ const homePage = layout({
       <div class="hero-copy">
         <p class="eyebrow"><span></span>Für iPhone · mit Apple Bildschirmzeit</p>
         <h1 id="hero-title">Pause the impulse.<br><span>Choose your next move.</span></h1>
-        <p class="hero-intro">PauseArc macht aus automatischem Scrollen einen bewussten Moment – mit echten Bildschirmzeitdaten, Fokusregeln und ohne Tracking.</p>
+        <p class="hero-intro">onepercent macht aus automatischem Scrollen einen bewussten Moment – mit echten Bildschirmzeitdaten, Fokusregeln und ohne Tracking.</p>
         <div class="actions">
           <a class="button button-primary" href="${links.support}">Hilfe öffnen <span aria-hidden="true">↗</span></a>
           <a class="button button-secondary" href="${links.privacy}">Datenschutz</a>
@@ -169,7 +169,7 @@ const homePage = layout({
         <p class="availability"><span class="status-dot" aria-hidden="true"></span>Veröffentlichung im App Store wird vorbereitet</p>
       </div>
 
-      <div class="hero-visual" aria-label="PauseArc – ein ruhiger Moment vor der nächsten Entscheidung">
+      <div class="hero-visual" aria-label="onepercent – ein ruhiger Moment vor der nächsten Entscheidung">
         <div class="orbit orbit-one"></div>
         <div class="orbit orbit-two"></div>
         <div class="pause-core"><span class="pause-bars"><i></i><i></i></span></div>
@@ -181,12 +181,12 @@ const homePage = layout({
 
     <section class="principles shell" aria-labelledby="principles-title">
       <div class="section-heading">
-        <p class="eyebrow"><span></span>So funktioniert PauseArc</p>
+        <p class="eyebrow"><span></span>So funktioniert onepercent</p>
         <h2 id="principles-title">Weniger Autopilot.<br>Mehr Absicht.</h2>
       </div>
       <div class="feature-grid">
         <article class="feature-card"><span class="feature-number">01</span><h3>Echte Bildschirmzeit</h3><p>Der Wochenbericht wird direkt aus Apples Bildschirmzeit-Framework erzeugt – ohne manuell eingetragene oder simulierte Werte.</p></article>
-        <article class="feature-card"><span class="feature-number">02</span><h3>Private Auswahl</h3><p>Apps und Kategorien wählst du im geschützten Apple-Systemdialog. PauseArc erhält dafür nur undurchsichtige System-Tokens.</p></article>
+        <article class="feature-card"><span class="feature-number">02</span><h3>Private Auswahl</h3><p>Apps und Kategorien wählst du im geschützten Apple-Systemdialog. onepercent erhält dafür nur undurchsichtige System-Tokens.</p></article>
         <article class="feature-card"><span class="feature-number">03</span><h3>Bewusste Unterbrechung</h3><p>Regeln und Fokuszeiten schaffen einen klaren Moment zwischen Impuls und Entscheidung – direkt auf deinem iPhone.</p></article>
       </div>
     </section>
@@ -194,14 +194,14 @@ const homePage = layout({
     <section class="privacy-promise shell" aria-labelledby="privacy-title">
       <div><p class="eyebrow"><span></span>Privacy by design</p><h2 id="privacy-title">Deine Nutzung bleibt auf deinem Gerät.</h2></div>
       <div class="promise-copy">
-        <p>Kein Konto. Kein Werbeprofil. Keine Analyse-SDKs. Keine Übertragung deiner rohen Bildschirmzeitdaten an PauseArc-Server.</p>
+        <p>Kein Konto. Kein Werbeprofil. Keine Analyse-SDKs. Keine Übertragung deiner rohen Bildschirmzeitdaten an onepercent-Server.</p>
         <a href="${links.privacy}">Datenschutz im Detail <span aria-hidden="true">→</span></a>
       </div>
     </section>
 
     <section class="support-cta shell" aria-labelledby="support-title">
       <p class="eyebrow light"><span></span>Wir helfen dir</p>
-      <h2 id="support-title">Eine Frage zu PauseArc?</h2>
+      <h2 id="support-title">Eine Frage zu onepercent?</h2>
       <p>Die häufigsten Antworten findest du in der Hilfe. Persönlich erreichst du uns per E-Mail.</p>
       <div class="actions centered">
         <a class="button button-light" href="${links.support}">Zur Hilfe</a>
@@ -211,66 +211,66 @@ const homePage = layout({
 });
 
 const supportPage = layout({
-  title: "Hilfe | PauseArc",
+  title: "Hilfe | onepercent",
   description:
-    "Hilfe zu Einrichtung, Bildschirmzeit-Freigabe, Regeln und TestFlight für PauseArc.",
+    "Hilfe zu Einrichtung, Bildschirmzeit-Freigabe, Regeln und TestFlight für onepercent.",
   route: "support/",
   depth: 1,
   currentPage: "support",
   content: () => `
-${pageIntro("PauseArc Hilfe", "Schnell wieder im Fokus.", "Hier findest du die wichtigsten Schritte zur Einrichtung und Antworten auf häufige Fragen.")}
+${pageIntro("onepercent Hilfe", "Schnell wieder im Fokus.", "Hier findest du die wichtigsten Schritte zur Einrichtung und Antworten auf häufige Fragen.")}
 
     <section class="content-section shell" aria-labelledby="setup-title">
       <div class="content-heading"><span class="content-index">01</span><div><p class="kicker">Einrichtung</p><h2 id="setup-title">In vier Schritten startklar</h2></div></div>
       <ol class="step-list">
-        <li><span>01</span><div><h3>Bildschirmzeit erlauben</h3><p>Öffne PauseArc auf deinem iPhone und bestätige die Apple-Systemabfrage. Ohne diese Freigabe kann PauseArc weder einen Bericht anzeigen noch ausgewählte Apps schützen.</p></div></li>
-        <li><span>02</span><div><h3>Apps und Kategorien auswählen</h3><p>Die Auswahl erfolgt ausschließlich im geschützten Apple-Dialog. PauseArc sieht keine Klarnamen deiner Auswahl, sondern arbeitet mit undurchsichtigen System-Tokens.</p></div></li>
-        <li><span>03</span><div><h3>Regel oder Fokuszeit anlegen</h3><p>Lege fest, wann die gewählte Auswahl geschützt werden soll. iOS verwaltet die Überwachung auch dann, wenn PauseArc nicht geöffnet ist.</p></div></li>
-        <li><span>04</span><div><h3>Wochenbericht prüfen</h3><p>Nach echter Nutzung zeigt PauseArc die von Apple bereitgestellte Aktivität für die letzten sieben Tage einschließlich heute an.</p></div></li>
+        <li><span>01</span><div><h3>Bildschirmzeit erlauben</h3><p>Öffne onepercent auf deinem iPhone und bestätige die Apple-Systemabfrage. Ohne diese Freigabe kann onepercent weder einen Bericht anzeigen noch ausgewählte Apps schützen.</p></div></li>
+        <li><span>02</span><div><h3>Apps und Kategorien auswählen</h3><p>Die Auswahl erfolgt ausschließlich im geschützten Apple-Dialog. onepercent sieht keine Klarnamen deiner Auswahl, sondern arbeitet mit undurchsichtigen System-Tokens.</p></div></li>
+        <li><span>03</span><div><h3>Regel oder Fokuszeit anlegen</h3><p>Lege fest, wann die gewählte Auswahl geschützt werden soll. iOS verwaltet die Überwachung auch dann, wenn onepercent nicht geöffnet ist.</p></div></li>
+        <li><span>04</span><div><h3>Wochenbericht prüfen</h3><p>Nach echter Nutzung zeigt onepercent die von Apple bereitgestellte Aktivität für die letzten sieben Tage einschließlich heute an.</p></div></li>
       </ol>
     </section>
 
     <section class="content-section shell" aria-labelledby="faq-title">
       <div class="content-heading"><span class="content-index">02</span><div><p class="kicker">FAQ</p><h2 id="faq-title">Häufige Fragen</h2></div></div>
       <div class="faq-list">
-        <details open><summary>Warum ist mein Bildschirmzeitbericht noch leer?</summary><p>Der Bericht benötigt eine erteilte Bildschirmzeit-Freigabe und echte Nutzung auf einem iPhone. Auf dem Simulator stehen diese Daten nicht zur Verfügung. Öffne die betroffenen Apps kurz, kehre später zu PauseArc zurück und prüfe den Bericht erneut.</p></details>
-        <details><summary>Speichert PauseArc meine App-Nutzung?</summary><p>Rohe Bildschirmzeitdaten werden innerhalb Apples geschützter Berichtserweiterung ausgewertet und nicht an einen PauseArc-Server übertragen. Lokale Einstellungen wie Regeln und Fortschritt bleiben auf deinem Gerät.</p></details>
-        <details><summary>Warum öffnet eine Sperre PauseArc nicht automatisch?</summary><p>Der Sperrbildschirm wird von iOS dargestellt. Apple erlaubt diesem Systembildschirm nicht, automatisch eine andere App oder Lernaktivität zu öffnen. Öffne PauseArc selbst, wenn du eine Fokus- oder Lernaktivität starten möchtest.</p></details>
-        <details><summary>Wie kann ich PauseArc herunterladen?</summary><p>Vor der öffentlichen Veröffentlichung erhalten interne Tester eine Einladung über Apples TestFlight-App. Sobald Apple die App freigegeben hat, erscheint sie unter der App Store ID ${appStoreId}.</p></details>
+        <details open><summary>Warum ist mein Bildschirmzeitbericht noch leer?</summary><p>Der Bericht benötigt eine erteilte Bildschirmzeit-Freigabe und echte Nutzung auf einem iPhone. Auf dem Simulator stehen diese Daten nicht zur Verfügung. Öffne die betroffenen Apps kurz, kehre später zu onepercent zurück und prüfe den Bericht erneut.</p></details>
+        <details><summary>Speichert onepercent meine App-Nutzung?</summary><p>Rohe Bildschirmzeitdaten werden innerhalb Apples geschützter Berichtserweiterung ausgewertet und nicht an einen onepercent-Server übertragen. Lokale Einstellungen wie Regeln und Fortschritt bleiben auf deinem Gerät.</p></details>
+        <details><summary>Warum öffnet eine Sperre onepercent nicht automatisch?</summary><p>Der Sperrbildschirm wird von iOS dargestellt. Apple erlaubt diesem Systembildschirm nicht, automatisch eine andere App oder Lernaktivität zu öffnen. Öffne onepercent selbst, wenn du eine Fokus- oder Lernaktivität starten möchtest.</p></details>
+        <details><summary>Wie kann ich onepercent herunterladen?</summary><p>Vor der öffentlichen Veröffentlichung erhalten interne Tester eine Einladung über Apples TestFlight-App. Sobald Apple die App freigegeben hat, erscheint sie unter der App Store ID ${appStoreId}.</p></details>
         <details><summary>Welche iOS-Version wird benötigt?</summary><p>Die Bildschirmzeitfunktionen benötigen ein kompatibles iPhone mit iOS 16 oder neuer. Einzelne Schwellenfunktionen verwenden auf neueren Versionen zusätzliche Apple-Funktionen.</p></details>
       </div>
     </section>
 
     <section class="contact-panel shell" aria-labelledby="contact-title">
       <div><p class="eyebrow light"><span></span>Persönlicher Support</p><h2 id="contact-title">Noch nicht gelöst?</h2></div>
-      <div><p>Schreib uns, was passiert ist, welches iPhone und welche iOS-Version du nutzt. Bitte sende keine vertraulichen Bildschirmzeitdetails.</p><a class="button button-light" href="mailto:${supportEmail}?subject=PauseArc%20Support">${supportEmail}</a></div>
+      <div><p>Schreib uns, was passiert ist, welches iPhone und welche iOS-Version du nutzt. Bitte sende keine vertraulichen Bildschirmzeitdetails.</p><a class="button button-light" href="mailto:${supportEmail}?subject=onepercent%20Support">${supportEmail}</a></div>
     </section>`,
 });
 
 const privacyPage = layout({
-  title: "Datenschutz | PauseArc",
-  description: "Datenschutzhinweise für die iOS-App PauseArc und diese Website.",
+  title: "Datenschutz | onepercent",
+  description: "Datenschutzhinweise für die iOS-App onepercent und diese Website.",
   route: "privacy/",
   depth: 1,
   currentPage: "privacy",
   content: () => `
-${pageIntro("Datenschutz", "Deine Daten gehören dir.", "PauseArc wurde so gebaut, dass deine Bildschirmzeit auf deinem iPhone bleibt. Stand dieser Hinweise: 14. August 2026.")}
+${pageIntro("Datenschutz", "Deine Daten gehören dir.", "onepercent wurde so gebaut, dass deine Bildschirmzeit auf deinem iPhone bleibt. Stand dieser Hinweise: 14. August 2026.")}
 
     <article class="legal shell">
-      <section><span class="content-index">01</span><div><h2>Verantwortlicher und Kontakt</h2><p>Verantwortlich für PauseArc ist Elias Lanez. Datenschutz- und Supportanfragen kannst du an <a href="mailto:${supportEmail}">${supportEmail}</a> richten.</p></div></section>
-      <section><span class="content-index">02</span><div><h2>Datenverarbeitung in der App</h2><p>PauseArc benötigt kein Benutzerkonto und betreibt keinen eigenen Backend-Dienst für deine App-Nutzung. Die von Apple bereitgestellten Bildschirmzeitdaten und der Sieben-Tage-Bericht werden innerhalb der geschützten Screen-Time- und Device-Activity-Komponenten auf deinem Gerät verarbeitet. Elias Lanez erhält weder rohe Bildschirmzeitdaten noch App-Namen oder Nutzungsverläufe.</p><p>Deine Auswahl von Apps und Kategorien wird über Apples FamilyActivityPicker vorgenommen. PauseArc arbeitet dabei mit undurchsichtigen System-Tokens. Regeln, Zeitpläne, Einstellungen und Lernfortschritt werden lokal auf deinem Gerät gespeichert. Beim Zurücksetzen der App-Daten oder beim Deinstallieren entfernt iOS diese lokalen Daten.</p></div></section>
-      <section><span class="content-index">03</span><div><h2>Keine Werbung und kein Tracking in der App</h2><p>PauseArc enthält keine Werbung, keine Analyse-SDKs und keine Tracking-Technologien. Es werden keine rohen Bildschirmzeitdaten an PauseArc-Server gesendet, verkauft oder zu Werbeprofilen zusammengeführt.</p></div></section>
+      <section><span class="content-index">01</span><div><h2>Verantwortlicher und Kontakt</h2><p>Verantwortlich für onepercent ist Elias Lanez. Datenschutz- und Supportanfragen kannst du an <a href="mailto:${supportEmail}">${supportEmail}</a> richten.</p></div></section>
+      <section><span class="content-index">02</span><div><h2>Datenverarbeitung in der App</h2><p>onepercent benötigt kein Benutzerkonto und betreibt keinen eigenen Backend-Dienst für deine App-Nutzung. Die von Apple bereitgestellten Bildschirmzeitdaten und der Sieben-Tage-Bericht werden innerhalb der geschützten Screen-Time- und Device-Activity-Komponenten auf deinem Gerät verarbeitet. Elias Lanez erhält weder rohe Bildschirmzeitdaten noch App-Namen oder Nutzungsverläufe.</p><p>Deine Auswahl von Apps und Kategorien wird über Apples FamilyActivityPicker vorgenommen. onepercent arbeitet dabei mit undurchsichtigen System-Tokens. Regeln, Zeitpläne, Einstellungen und Lernfortschritt werden lokal auf deinem Gerät gespeichert. Beim Zurücksetzen der App-Daten oder beim Deinstallieren entfernt iOS diese lokalen Daten.</p></div></section>
+      <section><span class="content-index">03</span><div><h2>Keine Werbung und kein Tracking in der App</h2><p>onepercent enthält keine Werbung, keine Analyse-SDKs und keine Tracking-Technologien. Es werden keine rohen Bildschirmzeitdaten an onepercent-Server gesendet, verkauft oder zu Werbeprofilen zusammengeführt.</p></div></section>
       <section><span class="content-index">04</span><div><h2>Berechtigungen</h2><p>Die Bildschirmzeit-Freigabe wird ausschließlich verwendet, um deine geschützte Auswahl zu verwalten, Regeln auf dem Gerät auszuführen und den Apple-Bericht anzuzeigen. Du kannst die Freigabe jederzeit in den iOS-Einstellungen widerrufen. Danach funktionieren diese Funktionen nicht mehr.</p></div></section>
       <section><span class="content-index">05</span><div><h2>Support per E-Mail</h2><p>Wenn du uns schreibst, verarbeiten wir Absendername, E-Mail-Adresse, Nachrichteninhalt, Anhänge und technische Nachrichtenmetadaten, um dein Anliegen zu beantworten, Fehler zu untersuchen und Missbrauch abzuwehren. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO bei nutzungsbezogenen Supportanfragen, ansonsten unser berechtigtes Interesse an der Bearbeitung von Anfragen nach Art. 6 Abs. 1 lit. f DSGVO.</p><p>Für die E-Mail-Infrastruktur wird bei einem im EWR geführten Verbraucherkonto Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland, eingesetzt. Google kann Daten nach seinen Datenschutzbedingungen auch außerhalb des EWR verarbeiten. Nachrichten werden nur so lange aufbewahrt, wie dies für Bearbeitung und gegebenenfalls Nachweis erforderlich ist, und anschließend gelöscht, soweit keine gesetzlichen Pflichten entgegenstehen. Eine Nutzung für Werbung findet nicht statt.</p></div></section>
-      <section><span class="content-index">06</span><div><h2>Hosting dieser Website über GitHub Pages</h2><p>Diese Website wird als statische Projektseite über den Dienst GitHub Pages bereitgestellt. GitHub nennt in seiner Datenschutzerklärung GitHub, Inc., 88 Colin P. Kelly Jr. St., San Francisco, CA 94107, USA, und GitHub B.V., Prins Bernhardplein 200, 1097 JB Amsterdam, Niederlande, als mögliche verantwortliche Gesellschaften – abhängig vom jeweiligen Verarbeitungskontext.</p><p>Der von PauseArc bereitgestellte Seitencode setzt keine Cookies, lädt keine Werbe- oder Analyse-SDKs und erstellt keine eigenen Zugriffsprotokolle. Laut GitHub wird beim Besuch einer GitHub-Pages-Website die IP-Adresse unabhängig von einer Anmeldung zu Sicherheitszwecken protokolliert und gespeichert. GitHub kann weitere technisch notwendige Verbindungs- und Nutzungsdaten nach seinen Bedingungen verarbeiten. Eine Verarbeitung in den USA und anderen Ländern ist möglich.</p><p>GitHub veröffentlicht keine einheitliche feste Aufbewahrungsfrist für alle dabei anfallenden Daten. Die Dauer richtet sich laut GitHub nach dem Verarbeitungszweck sowie vertraglichen und gesetzlichen Anforderungen. Weitere Einzelheiten findest du in den <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">Hinweisen zur Datenerhebung bei GitHub Pages</a> und in der <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">Datenschutzerklärung von GitHub</a>.</p><p>Rechtsgrundlage für die Bereitstellung dieser Support- und Datenschutzinformationen ist unser berechtigtes Interesse an einem sicheren und zuverlässigen Informationsangebot nach Art. 6 Abs. 1 lit. f DSGVO.</p></div></section>
+      <section><span class="content-index">06</span><div><h2>Hosting dieser Website über GitHub Pages</h2><p>Diese Website wird als statische Projektseite über den Dienst GitHub Pages bereitgestellt. GitHub nennt in seiner Datenschutzerklärung GitHub, Inc., 88 Colin P. Kelly Jr. St., San Francisco, CA 94107, USA, und GitHub B.V., Prins Bernhardplein 200, 1097 JB Amsterdam, Niederlande, als mögliche verantwortliche Gesellschaften – abhängig vom jeweiligen Verarbeitungskontext.</p><p>Der von onepercent bereitgestellte Seitencode setzt keine Cookies, lädt keine Werbe- oder Analyse-SDKs und erstellt keine eigenen Zugriffsprotokolle. Laut GitHub wird beim Besuch einer GitHub-Pages-Website die IP-Adresse unabhängig von einer Anmeldung zu Sicherheitszwecken protokolliert und gespeichert. GitHub kann weitere technisch notwendige Verbindungs- und Nutzungsdaten nach seinen Bedingungen verarbeiten. Eine Verarbeitung in den USA und anderen Ländern ist möglich.</p><p>GitHub veröffentlicht keine einheitliche feste Aufbewahrungsfrist für alle dabei anfallenden Daten. Die Dauer richtet sich laut GitHub nach dem Verarbeitungszweck sowie vertraglichen und gesetzlichen Anforderungen. Weitere Einzelheiten findest du in den <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">Hinweisen zur Datenerhebung bei GitHub Pages</a> und in der <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">Datenschutzerklärung von GitHub</a>.</p><p>Rechtsgrundlage für die Bereitstellung dieser Support- und Datenschutzinformationen ist unser berechtigtes Interesse an einem sicheren und zuverlässigen Informationsangebot nach Art. 6 Abs. 1 lit. f DSGVO.</p></div></section>
       <section><span class="content-index">07</span><div><h2>Deine Rechte</h2><p>Nach den anwendbaren Datenschutzgesetzen kannst du insbesondere Auskunft, Berichtigung, Löschung, Einschränkung und Datenübertragbarkeit verlangen sowie einer Verarbeitung widersprechen. Du kannst dich außerdem bei einer zuständigen Datenschutzaufsichtsbehörde beschweren.</p></div></section>
       <section><span class="content-index">08</span><div><h2>Weitere Angaben und Änderungen</h2><p>Es findet keine automatisierte Entscheidungsfindung und kein Profiling statt. Du bist nicht verpflichtet, Supportdaten bereitzustellen; ohne eine Nachricht können wir lediglich kein individuelles Anliegen beantworten.</p><p>Wir aktualisieren diese Hinweise, wenn sich Funktionen, Hosting oder rechtliche Anforderungen ändern. Die jeweils aktuelle Fassung wird auf dieser Seite veröffentlicht.</p></div></section>
     </article>`,
 });
 
 const notFoundPage = layout({
-  title: "Seite nicht gefunden | PauseArc",
-  description: "Die angeforderte PauseArc-Seite wurde nicht gefunden.",
+  title: "Seite nicht gefunden | onepercent",
+  description: "Die angeforderte onepercent-Seite wurde nicht gefunden.",
   route: "404.html",
   depth: 0,
   currentPage: "",
@@ -279,7 +279,7 @@ const notFoundPage = layout({
   content: (links) => `
 ${pageIntro("Fehler 404", "Diese Seite macht gerade Pause.", "Der aufgerufene Link existiert nicht oder wurde verschoben.")}
     <section class="support-cta shell" aria-labelledby="not-found-title">
-      <p class="eyebrow light"><span></span>Zurück zu PauseArc</p>
+      <p class="eyebrow light"><span></span>Zurück zu onepercent</p>
       <h2 id="not-found-title">Hier geht es weiter.</h2>
       <div class="actions centered">
         <a class="button button-light" href="${links.home}">Zur Startseite</a>
