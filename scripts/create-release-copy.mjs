@@ -14,8 +14,8 @@ import { fileURLToPath } from "node:url";
 const projectRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
 const cacheRoot = "/Users/eliaslanez/Library/Caches";
 const releaseRoot = path.resolve(
-  process.env.PAUSEARC_RELEASE_DIR ??
-    path.join(cacheRoot, "pausearc-support-release"),
+  process.env.ONEPERCENT_RELEASE_DIR ??
+    path.join(cacheRoot, "onepercent-support-release"),
 );
 const stagingRoot = `${releaseRoot}.staging`;
 
