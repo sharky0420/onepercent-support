@@ -7,8 +7,8 @@ import { fileURLToPath } from "node:url";
 const projectRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
 const docsDirectory = path.join(projectRoot, "docs");
 const configuredSiteUrl =
-  process.env.PAUSEARC_SITE_URL ??
-  "https://sharky0420.github.io/pausearc-support";
+  process.env.ONEPERCENT_SITE_URL ??
+  "https://sharky0420.github.io/onepercent-support";
 const deployedRoot = new URL(`${configuredSiteUrl.replace(/\/$/, "")}/`);
 
 const pages = [
@@ -93,7 +93,7 @@ test("all static pages are well-formed, branded HTML", async () => {
     assert.match(html, /<header class="site-header">/i);
     assert.match(html, /<main>/i);
     assert.match(html, /<footer class="site-footer">/i);
-    assert.match(html, /PauseArc/);
+    assert.match(html, /onepercent/);
     assert.doesNotMatch(
       html,
       /codex-preview|react-loading-skeleton|vinext-starter|Fokuspfad|QuietTurn|ReRoute/i,
@@ -141,7 +141,7 @@ test("landing, support and privacy content contains release-critical details", a
     readOutput("privacy/index.html"),
   ]);
 
-  assert.match(home, /<title>PauseArc – Pause the impulse\.<\/title>/i);
+  assert.match(home, /<title>onepercent – Pause the impulse\.<\/title>/i);
   assert.match(home, /Echte Bildschirmzeit/);
   assert.match(home, /ohne Tracking/);
 
