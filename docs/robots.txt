@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://sharky0420.github.io/pausearc-support/sitemap.xml
+Sitemap: https://sharky0420.github.io/onepercent-support/sitemap.xml
