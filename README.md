@@ -1,6 +1,6 @@
-# PauseArc Support & Datenschutz
+# onepercent Support & Datenschutz
 
-Öffentliche, vollständig statische Begleitwebsite für PauseArc. Sie enthält die
+Öffentliche, vollständig statische Begleitwebsite für onepercent. Sie enthält die
 Startseite, Hilfe, Datenschutzinformationen und eine eigene 404-Seite. Für den
 Betrieb werden weder Server-Code noch eine Datenbank benötigt.
 
@@ -21,20 +21,20 @@ Der Build kopiert gemeinsame Assets, erzeugt alle HTML-Routen und schreibt
 
 `npm run release:copy` erstellt zusätzlich eine vollständig materialisierte
 Release-Kopie samt SHA-256-Manifest unter
-`/Users/eliaslanez/Library/Caches/pausearc-support-release`. Dieser Pfad liegt
+`/Users/eliaslanez/Library/Caches/onepercent-support-release`. Dieser Pfad liegt
 außerhalb des iCloud-synchronisierten Desktop-Ordners.
 
 Die Standardadresse ist:
 
 ```text
-https://sharky0420.github.io/pausearc-support/
+https://sharky0420.github.io/onepercent-support/
 ```
 
 Falls das Repository oder die Domain später geändert wird, muss die öffentliche
 Basisadresse beim Build gesetzt werden:
 
 ```bash
-PAUSEARC_SITE_URL=https://example.com npm run build
+ONEPERCENT_SITE_URL=https://example.com npm run build
 ```
 
 ## GitHub Pages aktivieren
