@@ -21,7 +21,7 @@ Der Build kopiert gemeinsame Assets, erzeugt alle HTML-Routen und schreibt
 
 `npm run release:copy` erstellt zusätzlich eine vollständig materialisierte
 Release-Kopie samt SHA-256-Manifest unter
-`/Users/eliaslanez/Library/Caches/onepercent-support-release`. Dieser Pfad liegt
+`~/Library/Caches/onepercent-support-release`. Dieser Pfad liegt
 außerhalb des iCloud-synchronisierten Desktop-Ordners.
 
 Die Standardadresse ist:
