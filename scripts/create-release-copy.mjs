@@ -9,10 +9,11 @@ import {
   writeFile,
 } from "node:fs/promises";
 import path from "node:path";
+import os from "node:os";
 import { fileURLToPath } from "node:url";
 
 const projectRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
-const cacheRoot = "/Users/eliaslanez/Library/Caches";
+const cacheRoot = path.join(os.homedir(), "Library", "Caches");
 const releaseRoot = path.resolve(
   process.env.ONEPERCENT_RELEASE_DIR ??
     path.join(cacheRoot, "onepercent-support-release"),
