@@ -8,7 +8,8 @@ const sourceDirectory = path.join(projectRoot, "src");
 const publicDirectory = path.join(projectRoot, "public");
 
 const supportEmail = "e.lanez2004@gmail.com";
-const appStoreId = "6801456354";
+// Keep the deployed repository slug until GitHub Pages is moved. Page copy,
+// metadata and package identity are fully branded onepercent.
 const defaultSiteUrl = "https://sharky0420.github.io/onepercent-support";
 const siteUrl = normalizeSiteUrl(
   process.env.ONEPERCENT_SITE_URL ?? defaultSiteUrl,
@@ -32,17 +33,14 @@ function pageLinks(depth, useSitePath = false) {
     support: `${prefix}support/`,
     privacy: `${prefix}privacy/`,
     stylesheet: `${prefix}assets/site.css`,
-    favicon: `${prefix}favicon.svg`,
+    logo: `${prefix}assets/onepercent-logo.png`,
+    favicon: `${prefix}favicon.png`,
     ogImage: `${siteUrl}/og.png`,
   };
 }
 
-function brandMark() {
-  return `
-    <span class="brand-mark" aria-hidden="true">
-      <span class="brand-arc"></span>
-      <span class="brand-pause"><i></i><i></i></span>
-    </span>`;
+function brandMark(links) {
+  return `<img class="brand-logo" src="${links.logo}" width="34" height="34" alt="">`;
 }
 
 function header(links, currentPage) {
@@ -53,7 +51,7 @@ function header(links, currentPage) {
   <header class="site-header">
     <div class="shell header-inner">
       <a class="brand" href="${links.home}" aria-label="onepercent Startseite"${current("home")}>
-        ${brandMark()}
+        ${brandMark(links)}
         <span>onepercent</span>
       </a>
       <nav aria-label="Hauptnavigation">
@@ -71,7 +69,7 @@ function footer(links) {
     <div class="shell footer-inner">
       <div>
         <a class="brand footer-brand" href="${links.home}" aria-label="onepercent Startseite">
-          ${brandMark()}
+          ${brandMark(links)}
           <span>onepercent</span>
         </a>
         <p>Pause the impulse.</p>
@@ -81,7 +79,7 @@ function footer(links) {
         <a href="${links.privacy}">Datenschutz</a>
         <a href="mailto:${supportEmail}">Kontakt</a>
       </div>
-      <p class="copyright">© 2026 onepercent · App Store ID ${appStoreId}</p>
+      <p class="copyright">© 2026 onepercent · iOS &amp; Android</p>
     </div>
   </footer>`;
 }
@@ -121,7 +119,7 @@ function layout({
   <title>${title}</title>
   <meta name="description" content="${description}">
   <link rel="canonical" href="${canonicalUrl}">
-  <link rel="icon" href="${links.favicon}" type="image/svg+xml">
+  <link rel="icon" href="${links.favicon}" type="image/png" sizes="64x64">
   <link rel="stylesheet" href="${links.stylesheet}">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="de_DE">
@@ -132,7 +130,7 @@ function layout({
   <meta property="og:image" content="${links.ogImage}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="onepercent – Pause the impulse.">
+  <meta property="og:image:alt" content="Offizielles onepercent 1%-Logo">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${title}">
   <meta name="twitter:description" content="${description}">
@@ -152,27 +150,27 @@ ${footer(links)}
 const homePage = layout({
   title: "onepercent – Pause the impulse.",
   description:
-    "onepercent verbindet Apples Bildschirmzeit mit bewussten Pausen – privat, lokal und ohne Tracking.",
+    "onepercent verbindet tägliche 1%-Schritte, Fokus und Lernen – privat, lokal und ohne Tracking.",
   route: "",
   depth: 0,
   currentPage: "home",
   content: (links) => `
     <section class="hero shell" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow"><span></span>Für iPhone · mit Apple Bildschirmzeit</p>
+        <p class="eyebrow"><span></span>Für iPhone &amp; Android</p>
         <h1 id="hero-title">Pause the impulse.<br><span>Choose your next move.</span></h1>
-        <p class="hero-intro">onepercent macht aus automatischem Scrollen einen bewussten Moment – mit echten Bildschirmzeitdaten, Fokusregeln und ohne Tracking.</p>
+        <p class="hero-intro">onepercent macht aus Autopilot einen bewussten Moment – mit persönlichen 1%-Impulsen, Fokus-Sessions, kurzen Lernmomenten und ohne Tracking. Die App ist auf Deutsch und Englisch verfügbar.</p>
         <div class="actions">
           <a class="button button-primary" href="${links.support}">Hilfe öffnen <span aria-hidden="true">↗</span></a>
           <a class="button button-secondary" href="${links.privacy}">Datenschutz</a>
         </div>
-        <p class="availability"><span class="status-dot" aria-hidden="true"></span>Veröffentlichung im App Store wird vorbereitet</p>
+        <p class="availability"><span class="status-dot" aria-hidden="true"></span>Veröffentlichung in App Store und Google Play wird vorbereitet</p>
       </div>
 
       <div class="hero-visual" aria-label="onepercent – ein ruhiger Moment vor der nächsten Entscheidung">
         <div class="orbit orbit-one"></div>
         <div class="orbit orbit-two"></div>
-        <div class="pause-core"><span class="pause-bars"><i></i><i></i></span></div>
+        <div class="hero-brand"><img src="${links.logo}" width="126" height="126" alt=""></div>
         <div class="orbit-label label-pause">Pause</div>
         <div class="orbit-label label-choose">Choose</div>
         <p>Ein Moment<br>gehört wieder dir.</p>
@@ -185,16 +183,16 @@ const homePage = layout({
         <h2 id="principles-title">Weniger Autopilot.<br>Mehr Absicht.</h2>
       </div>
       <div class="feature-grid">
-        <article class="feature-card"><span class="feature-number">01</span><h3>Echte Bildschirmzeit</h3><p>Der Wochenbericht wird direkt aus Apples Bildschirmzeit-Framework erzeugt – ohne manuell eingetragene oder simulierte Werte.</p></article>
-        <article class="feature-card"><span class="feature-number">02</span><h3>Private Auswahl</h3><p>Apps und Kategorien wählst du im geschützten Apple-Systemdialog. onepercent erhält dafür nur undurchsichtige System-Tokens.</p></article>
-        <article class="feature-card"><span class="feature-number">03</span><h3>Bewusste Unterbrechung</h3><p>Regeln und Fokuszeiten schaffen einen klaren Moment zwischen Impuls und Entscheidung – direkt auf deinem iPhone.</p></article>
+        <article class="feature-card"><span class="feature-number">01</span><h3>Dein persönliches 1%</h3><p>Ein lokales Profil und nachvollziehbare Empfehlungen machen aus deinem Ziel einen kleinen Schritt für heute.</p></article>
+        <article class="feature-card"><span class="feature-number">02</span><h3>Fokus und Lernen</h3><p>Fokus-Sessions, kurze Lektionen und Denkspiele helfen dir, deine nächste bewusste Entscheidung direkt umzusetzen.</p></article>
+        <article class="feature-card"><span class="feature-number">03</span><h3>Privat auf dem Gerät</h3><p>Profil, Fortschritt, Streaks und Einstellungen bleiben lokal. Es gibt kein onepercent-Konto, keine Werbung und kein Tracking.</p></article>
       </div>
     </section>
 
     <section class="privacy-promise shell" aria-labelledby="privacy-title">
       <div><p class="eyebrow"><span></span>Privacy by design</p><h2 id="privacy-title">Deine Nutzung bleibt auf deinem Gerät.</h2></div>
       <div class="promise-copy">
-        <p>Kein Konto. Kein Werbeprofil. Keine Analyse-SDKs. Keine Übertragung deiner rohen Bildschirmzeitdaten an onepercent-Server.</p>
+        <p>Kein Konto. Kein Werbeprofil. Keine Analyse-SDKs. Keine Übertragung deiner Profil- oder Fortschrittsdaten an onepercent-Server.</p>
         <a href="${links.privacy}">Datenschutz im Detail <span aria-hidden="true">→</span></a>
       </div>
     </section>
@@ -213,7 +211,7 @@ const homePage = layout({
 const supportPage = layout({
   title: "Hilfe | onepercent",
   description:
-    "Hilfe zu Einrichtung, Bildschirmzeit-Freigabe, Regeln und TestFlight für onepercent.",
+    "Hilfe zu Einrichtung, Fokus, Fortschritt und Plattformfunktionen von onepercent.",
   route: "support/",
   depth: 1,
   currentPage: "support",
@@ -221,50 +219,56 @@ const supportPage = layout({
 ${pageIntro("onepercent Hilfe", "Schnell wieder im Fokus.", "Hier findest du die wichtigsten Schritte zur Einrichtung und Antworten auf häufige Fragen.")}
 
     <section class="content-section shell" aria-labelledby="setup-title">
-      <div class="content-heading"><span class="content-index">01</span><div><p class="kicker">Einrichtung</p><h2 id="setup-title">In vier Schritten startklar</h2></div></div>
+      <div class="content-heading"><span class="content-index">01</span><div><p class="kicker">Einrichtung</p><h2 id="setup-title">Schnell startklar</h2></div></div>
       <ol class="step-list">
-        <li><span>01</span><div><h3>Bildschirmzeit erlauben</h3><p>Öffne onepercent auf deinem iPhone und bestätige die Apple-Systemabfrage. Ohne diese Freigabe kann onepercent weder einen Bericht anzeigen noch ausgewählte Apps schützen.</p></div></li>
-        <li><span>02</span><div><h3>Apps und Kategorien auswählen</h3><p>Die Auswahl erfolgt ausschließlich im geschützten Apple-Dialog. onepercent sieht keine Klarnamen deiner Auswahl, sondern arbeitet mit undurchsichtigen System-Tokens.</p></div></li>
-        <li><span>03</span><div><h3>Regel oder Fokuszeit anlegen</h3><p>Lege fest, wann die gewählte Auswahl geschützt werden soll. iOS verwaltet die Überwachung auch dann, wenn onepercent nicht geöffnet ist.</p></div></li>
-        <li><span>04</span><div><h3>Wochenbericht prüfen</h3><p>Nach echter Nutzung zeigt onepercent die von Apple bereitgestellte Aktivität für die letzten sieben Tage einschließlich heute an.</p></div></li>
+        <li><span>01</span><div><h3>Profil und Ziel wählen</h3><p>Beantworte beim ersten Start ein paar kurze Fragen. Deine Angaben werden nur auf deinem Gerät gespeichert und bestimmen deine täglichen Empfehlungen.</p></div></li>
+        <li><span>02</span><div><h3>Dein tägliches 1% starten</h3><p>Öffne „Heute“, wähle eine passende Aktivität und schließe deinen ersten bewussten Schritt ab.</p></div></li>
+        <li><span>03</span><div><h3>Fokus oder Lernmoment nutzen</h3><p>Starte eine Fokus-Session, eine kurze Lektion oder eines der Denkspiele. Fortschritt, Streak und Punkte werden lokal gespeichert.</p></div></li>
+        <li><span>04</span><div><h3>Optionale Erinnerungen erlauben</h3><p>Wenn du lokale Erinnerungen möchtest, bestätige die Systemabfrage. Du kannst die Berechtigung jederzeit in iOS oder Android widerrufen.</p></div></li>
       </ol>
     </section>
 
     <section class="content-section shell" aria-labelledby="faq-title">
       <div class="content-heading"><span class="content-index">02</span><div><p class="kicker">FAQ</p><h2 id="faq-title">Häufige Fragen</h2></div></div>
       <div class="faq-list">
-        <details open><summary>Warum ist mein Bildschirmzeitbericht noch leer?</summary><p>Der Bericht benötigt eine erteilte Bildschirmzeit-Freigabe und echte Nutzung auf einem iPhone. Auf dem Simulator stehen diese Daten nicht zur Verfügung. Öffne die betroffenen Apps kurz, kehre später zu onepercent zurück und prüfe den Bericht erneut.</p></details>
-        <details><summary>Speichert onepercent meine App-Nutzung?</summary><p>Rohe Bildschirmzeitdaten werden innerhalb Apples geschützter Berichtserweiterung ausgewertet und nicht an einen onepercent-Server übertragen. Lokale Einstellungen wie Regeln und Fortschritt bleiben auf deinem Gerät.</p></details>
-        <details><summary>Warum öffnet eine Sperre onepercent nicht automatisch?</summary><p>Der Sperrbildschirm wird von iOS dargestellt. Apple erlaubt diesem Systembildschirm nicht, automatisch eine andere App oder Lernaktivität zu öffnen. Öffne onepercent selbst, wenn du eine Fokus- oder Lernaktivität starten möchtest.</p></details>
-        <details><summary>Wie kann ich onepercent herunterladen?</summary><p>Vor der öffentlichen Veröffentlichung erhalten interne Tester eine Einladung über Apples TestFlight-App. Sobald Apple die App freigegeben hat, erscheint sie unter der App Store ID ${appStoreId}.</p></details>
-        <details><summary>Welche iOS-Version wird benötigt?</summary><p>Die Bildschirmzeitfunktionen benötigen ein kompatibles iPhone mit iOS 16 oder neuer. Einzelne Schwellenfunktionen verwenden auf neueren Versionen zusätzliche Apple-Funktionen.</p></details>
+        <details open><summary>Welche Funktionen gibt es auf Android?</summary><p>Auf Android funktionieren persönlicher Tagescoach, Fokus-Sessions, Lernmomente, Denkspiele, Streaks, Punkte, Fortschritt und lokale Erinnerungen. Apples Bildschirmzeitbericht, FamilyActivityPicker und das systemweite Schützen ausgewählter Apps sind ausschließlich auf unterstützten iPhones und iPads verfügbar.</p></details>
+        <details><summary>Speichert onepercent meine App-Nutzung?</summary><p>Die Android-Version liest keine Liste installierter Apps und keine Bildschirmzeit aus. Auf iOS werden Bildschirmzeitwerte nur innerhalb Apples geschützter Berichtserweiterung ausgewertet und nicht an einen onepercent-Server übertragen. Profil, Einstellungen und Fortschritt bleiben lokal.</p></details>
+        <details><summary>Was ist in FREE und PRO enthalten?</summary><p>FREE umfasst eine aktive persönliche Regel und eine Basis-Historie der letzten sieben Tage. PRO bietet unbegrenzte persönliche Regeln, Deep Focus, einen Whitelist-Fokus für einzeln gewählte Apps und Webdomains, eine zehnsekündige Freigabeverzögerung, eine unbegrenzte detaillierte Historie sowie die Farbstile Ocean und Ember. Das offizielle 1%-App-Icon bleibt fest; auswählbare Launcher-Icon-Varianten gibt es derzeit nicht.</p></details>
+        <details><summary>Wie funktionieren Punkte und der Pro-Pass?</summary><p>Jeder eindeutig gespeicherte Abschluss bringt einmalig 10 Punkte. Ein 14-Tage-Streak bringt einmalig 100 Bonuspunkte. Ab 500 Punkten kannst du 30 Tage Pro aktivieren. Doppelte Callbacks buchen keine doppelten Punkte.</p></details>
+        <details><summary>Ist onepercent auch auf Englisch verfügbar?</summary><p>Ja. Du kannst in der App Deutsch, Englisch oder die Systemsprache wählen. Onboarding, Hauptansichten, Spiele, native Bildschirmzeitberichte und System-Shields folgen dieser Einstellung.</p></details>
+        <details><summary>Warum öffnet eine Sperre onepercent nicht automatisch?</summary><p>Der Sperrbildschirm wird von iOS dargestellt. Apple erlaubt diesem Systembildschirm nicht, automatisch eine andere App oder Lernaktivität zu öffnen. Tippe auf die onepercent-Mitteilung oder öffne die App manuell; dort startet die zur Regel passende Aktivität. Wenn Mitteilungen deaktiviert oder durch einen Fokus zurückgehalten werden, bleibt der manuelle Weg.</p></details>
+        <details><summary>Kann eine Schule onepercent zentral erzwingen?</summary><p>Die App enthält ein lokales Schulzeit-Preset und eine technische Grundlage für signierte, schreibgeschützte Schulrichtlinien. Im aktuellen Release sind jedoch kein Schul-Backend, kein Signaturschlüssel und kein MDM-Deployment konfiguriert. Auf privaten iPhones kann der Besitzer die Bildschirmzeitfreigabe widerrufen; verbindliche zentrale Durchsetzung setzt verwaltete Schulgeräte und MDM voraus.</p></details>
+        <details><summary>Wie verlässlich ist ein Pro-Kauf?</summary><p>App Store und Google Play liefern Produkt, Preis und Kaufbeleg. Der aktuelle Build wertet den Beleg auf dem Gerät vorläufig aus. Für einen produktiven Bezahlbetrieb ist zusätzlich eine sichere Serverprüfung nötig, damit Verlängerungen, Erstattungen und Widerrufe autoritativ berücksichtigt werden.</p></details>
+        <details><summary>Wie kann ich onepercent herunterladen?</summary><p>Vor der öffentlichen Veröffentlichung erhalten Tester eine Einladung über Apple TestFlight oder den geschlossenen Google-Play-Test. Nach der Freigabe erscheint onepercent im App Store und bei Google Play.</p></details>
+        <details><summary>Welche Systemversion wird benötigt?</summary><p>Android benötigt Version 7.0 oder neuer. Die Apple-Bildschirmzeitfunktionen benötigen ein kompatibles iPhone oder iPad mit iOS 16 oder neuer.</p></details>
       </div>
     </section>
 
     <section class="contact-panel shell" aria-labelledby="contact-title">
       <div><p class="eyebrow light"><span></span>Persönlicher Support</p><h2 id="contact-title">Noch nicht gelöst?</h2></div>
-      <div><p>Schreib uns, was passiert ist, welches iPhone und welche iOS-Version du nutzt. Bitte sende keine vertraulichen Bildschirmzeitdetails.</p><a class="button button-light" href="mailto:${supportEmail}?subject=onepercent%20Support">${supportEmail}</a></div>
+      <div><p>Schreib uns, was passiert ist, welches Gerät und welche Systemversion du nutzt. Bitte sende keine vertraulichen Bildschirmzeitdetails.</p><a class="button button-light" href="mailto:${supportEmail}?subject=onepercent%20Support">${supportEmail}</a></div>
     </section>`,
 });
 
 const privacyPage = layout({
   title: "Datenschutz | onepercent",
-  description: "Datenschutzhinweise für die iOS-App onepercent und diese Website.",
+  description: "Datenschutzhinweise für die iOS- und Android-App onepercent und diese Website.",
   route: "privacy/",
   depth: 1,
   currentPage: "privacy",
   content: () => `
-${pageIntro("Datenschutz", "Deine Daten gehören dir.", "onepercent wurde so gebaut, dass deine Bildschirmzeit auf deinem iPhone bleibt. Stand dieser Hinweise: 14. August 2026.")}
+${pageIntro("Datenschutz", "Deine Daten gehören dir.", "onepercent wurde so gebaut, dass deine Daten auf deinem Gerät bleiben. Stand dieser Hinweise: 2. September 2026.")}
 
     <article class="legal shell">
       <section><span class="content-index">01</span><div><h2>Verantwortlicher und Kontakt</h2><p>Verantwortlich für onepercent ist Elias Lanez. Datenschutz- und Supportanfragen kannst du an <a href="mailto:${supportEmail}">${supportEmail}</a> richten.</p></div></section>
-      <section><span class="content-index">02</span><div><h2>Datenverarbeitung in der App</h2><p>onepercent benötigt kein Benutzerkonto und betreibt keinen eigenen Backend-Dienst für deine App-Nutzung. Die von Apple bereitgestellten Bildschirmzeitdaten und der Sieben-Tage-Bericht werden innerhalb der geschützten Screen-Time- und Device-Activity-Komponenten auf deinem Gerät verarbeitet. Elias Lanez erhält weder rohe Bildschirmzeitdaten noch App-Namen oder Nutzungsverläufe.</p><p>Deine Auswahl von Apps und Kategorien wird über Apples FamilyActivityPicker vorgenommen. onepercent arbeitet dabei mit undurchsichtigen System-Tokens. Regeln, Zeitpläne, Einstellungen und Lernfortschritt werden lokal auf deinem Gerät gespeichert. Beim Zurücksetzen der App-Daten oder beim Deinstallieren entfernt iOS diese lokalen Daten.</p></div></section>
+      <section><span class="content-index">02</span><div><h2>Datenverarbeitung in der App</h2><p>onepercent benötigt kein Benutzerkonto und betreibt keinen eigenen Backend-Dienst für deine App-Nutzung. Profilangaben, Ziele, Regeln, Zeitpläne, Spracheinstellungen, Streaks, Punkte und Lernfortschritt werden lokal auf deinem Gerät gespeichert. Persönliche Tipps werden lokal und deterministisch aus deinen Onboarding-Antworten und Fortschrittsdaten abgeleitet; dafür findet keine Anfrage an einen externen KI-Dienst statt. Beim Zurücksetzen der App-Daten oder beim Deinstallieren entfernt das Betriebssystem diese lokalen Daten nach seinen Regeln.</p><p>Die Android-Version liest weder installierte Apps noch Bildschirmzeit- oder Nutzungsverläufe aus. Auf iOS werden die von Apple bereitgestellten Bildschirmzeitdaten und der Sieben-Tage-Bericht ausschließlich innerhalb der geschützten Screen-Time- und Device-Activity-Komponenten auf deinem Gerät verarbeitet. Die Auswahl von Apps und Kategorien erfolgt dort über Apples FamilyActivityPicker und undurchsichtige System-Tokens. Elias Lanez erhält weder rohe Bildschirmzeitdaten noch App-Namen oder Nutzungsverläufe.</p></div></section>
       <section><span class="content-index">03</span><div><h2>Keine Werbung und kein Tracking in der App</h2><p>onepercent enthält keine Werbung, keine Analyse-SDKs und keine Tracking-Technologien. Es werden keine rohen Bildschirmzeitdaten an onepercent-Server gesendet, verkauft oder zu Werbeprofilen zusammengeführt.</p></div></section>
-      <section><span class="content-index">04</span><div><h2>Berechtigungen</h2><p>Die Bildschirmzeit-Freigabe wird ausschließlich verwendet, um deine geschützte Auswahl zu verwalten, Regeln auf dem Gerät auszuführen und den Apple-Bericht anzuzeigen. Du kannst die Freigabe jederzeit in den iOS-Einstellungen widerrufen. Danach funktionieren diese Funktionen nicht mehr.</p></div></section>
+      <section><span class="content-index">04</span><div><h2>Berechtigungen</h2><p>Auf Android kann onepercent die Benachrichtigungsberechtigung anfragen, um von dir aktivierte lokale Erinnerungen anzuzeigen. Die App nutzt außerdem die Neustart-Berechtigung, damit geplante lokale Erinnerungen nach einem Gerätestart wiederhergestellt werden können.</p><p>Auf iOS wird die optionale Bildschirmzeit-Freigabe ausschließlich verwendet, um deine geschützte Auswahl zu verwalten, Regeln auf dem Gerät auszuführen und den Apple-Bericht anzuzeigen. Du kannst Berechtigungen jederzeit in den Systemeinstellungen widerrufen. Die Verarbeitung erfolgt lokal und überträgt keine Fortschrittsdaten an einen onepercent-Server.</p></div></section>
       <section><span class="content-index">05</span><div><h2>Support per E-Mail</h2><p>Wenn du uns schreibst, verarbeiten wir Absendername, E-Mail-Adresse, Nachrichteninhalt, Anhänge und technische Nachrichtenmetadaten, um dein Anliegen zu beantworten, Fehler zu untersuchen und Missbrauch abzuwehren. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO bei nutzungsbezogenen Supportanfragen, ansonsten unser berechtigtes Interesse an der Bearbeitung von Anfragen nach Art. 6 Abs. 1 lit. f DSGVO.</p><p>Für die E-Mail-Infrastruktur wird bei einem im EWR geführten Verbraucherkonto Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland, eingesetzt. Google kann Daten nach seinen Datenschutzbedingungen auch außerhalb des EWR verarbeiten. Nachrichten werden nur so lange aufbewahrt, wie dies für Bearbeitung und gegebenenfalls Nachweis erforderlich ist, und anschließend gelöscht, soweit keine gesetzlichen Pflichten entgegenstehen. Eine Nutzung für Werbung findet nicht statt.</p></div></section>
-      <section><span class="content-index">06</span><div><h2>Hosting dieser Website über GitHub Pages</h2><p>Diese Website wird als statische Projektseite über den Dienst GitHub Pages bereitgestellt. GitHub nennt in seiner Datenschutzerklärung GitHub, Inc., 88 Colin P. Kelly Jr. St., San Francisco, CA 94107, USA, und GitHub B.V., Prins Bernhardplein 200, 1097 JB Amsterdam, Niederlande, als mögliche verantwortliche Gesellschaften – abhängig vom jeweiligen Verarbeitungskontext.</p><p>Der von onepercent bereitgestellte Seitencode setzt keine Cookies, lädt keine Werbe- oder Analyse-SDKs und erstellt keine eigenen Zugriffsprotokolle. Laut GitHub wird beim Besuch einer GitHub-Pages-Website die IP-Adresse unabhängig von einer Anmeldung zu Sicherheitszwecken protokolliert und gespeichert. GitHub kann weitere technisch notwendige Verbindungs- und Nutzungsdaten nach seinen Bedingungen verarbeiten. Eine Verarbeitung in den USA und anderen Ländern ist möglich.</p><p>GitHub veröffentlicht keine einheitliche feste Aufbewahrungsfrist für alle dabei anfallenden Daten. Die Dauer richtet sich laut GitHub nach dem Verarbeitungszweck sowie vertraglichen und gesetzlichen Anforderungen. Weitere Einzelheiten findest du in den <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">Hinweisen zur Datenerhebung bei GitHub Pages</a> und in der <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">Datenschutzerklärung von GitHub</a>.</p><p>Rechtsgrundlage für die Bereitstellung dieser Support- und Datenschutzinformationen ist unser berechtigtes Interesse an einem sicheren und zuverlässigen Informationsangebot nach Art. 6 Abs. 1 lit. f DSGVO.</p></div></section>
-      <section><span class="content-index">07</span><div><h2>Deine Rechte</h2><p>Nach den anwendbaren Datenschutzgesetzen kannst du insbesondere Auskunft, Berichtigung, Löschung, Einschränkung und Datenübertragbarkeit verlangen sowie einer Verarbeitung widersprechen. Du kannst dich außerdem bei einer zuständigen Datenschutzaufsichtsbehörde beschweren.</p></div></section>
-      <section><span class="content-index">08</span><div><h2>Weitere Angaben und Änderungen</h2><p>Es findet keine automatisierte Entscheidungsfindung und kein Profiling statt. Du bist nicht verpflichtet, Supportdaten bereitzustellen; ohne eine Nachricht können wir lediglich kein individuelles Anliegen beantworten.</p><p>Wir aktualisieren diese Hinweise, wenn sich Funktionen, Hosting oder rechtliche Anforderungen ändern. Die jeweils aktuelle Fassung wird auf dieser Seite veröffentlicht.</p></div></section>
+      <section><span class="content-index">06</span><div><h2>Käufe und Teilen</h2><p>Optionale Pro-Käufe werden über den App Store beziehungsweise Google Play abgewickelt. onepercent fragt Produktinformationen und Kaufstatus beim Geräte-Store ab. Der aktuelle Build übermittelt keinen Kaufbeleg an einen onepercent-Server und erhebt selbst keine Zahlungsdaten. Die lokale Belegauswertung ist vorläufig; vor einem produktiven Bezahlbetrieb ist eine sichere Serverprüfung erforderlich, um insbesondere Verlängerungen, Erstattungen und Widerrufe autoritativ zu berücksichtigen.</p><p>Die Teilen-Funktion öffnet nur nach deiner bewussten Aktion das System-Share-Sheet. Der vorgeschlagene Text enthält Streak und Punkte, aber keine App-Namen oder rohen Bildschirmzeitdaten. Eine Übermittlung erfolgt erst, wenn du einen Ziel-Dienst auswählst; dessen Datenschutzbestimmungen gelten für die weitere Verarbeitung.</p></div></section>
+      <section><span class="content-index">07</span><div><h2>Hosting dieser Website über GitHub Pages</h2><p>Diese Website wird als statische Projektseite über den Dienst GitHub Pages bereitgestellt. GitHub nennt in seiner Datenschutzerklärung GitHub, Inc., 88 Colin P. Kelly Jr. St., San Francisco, CA 94107, USA, und GitHub B.V., Prins Bernhardplein 200, 1097 JB Amsterdam, Niederlande, als mögliche verantwortliche Gesellschaften – abhängig vom jeweiligen Verarbeitungskontext.</p><p>Der von onepercent bereitgestellte Seitencode setzt keine Cookies, lädt keine Werbe- oder Analyse-SDKs und erstellt keine eigenen Zugriffsprotokolle. Laut GitHub wird beim Besuch einer GitHub-Pages-Website die IP-Adresse unabhängig von einer Anmeldung zu Sicherheitszwecken protokolliert und gespeichert. GitHub kann weitere technisch notwendige Verbindungs- und Nutzungsdaten nach seinen Bedingungen verarbeiten. Eine Verarbeitung in den USA und anderen Ländern ist möglich.</p><p>GitHub veröffentlicht keine einheitliche feste Aufbewahrungsfrist für alle dabei anfallenden Daten. Die Dauer richtet sich laut GitHub nach dem Verarbeitungszweck sowie vertraglichen und gesetzlichen Anforderungen. Weitere Einzelheiten findest du in den <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">Hinweisen zur Datenerhebung bei GitHub Pages</a> und in der <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">Datenschutzerklärung von GitHub</a>.</p><p>Rechtsgrundlage für die Bereitstellung dieser Support- und Datenschutzinformationen ist unser berechtigtes Interesse an einem sicheren und zuverlässigen Informationsangebot nach Art. 6 Abs. 1 lit. f DSGVO.</p></div></section>
+      <section><span class="content-index">08</span><div><h2>Deine Rechte</h2><p>Nach den anwendbaren Datenschutzgesetzen kannst du insbesondere Auskunft, Berichtigung, Löschung, Einschränkung und Datenübertragbarkeit verlangen sowie einer Verarbeitung widersprechen. Du kannst dich außerdem bei einer zuständigen Datenschutzaufsichtsbehörde beschweren.</p></div></section>
+      <section><span class="content-index">09</span><div><h2>Weitere Angaben und Änderungen</h2><p>Die lokale Personalisierung ordnet dir Tipps zu, trifft aber keine ausschließlich automatisierten Entscheidungen mit rechtlicher oder ähnlich erheblicher Wirkung. Du bist nicht verpflichtet, Supportdaten bereitzustellen; ohne eine Nachricht können wir lediglich kein individuelles Anliegen beantworten.</p><p>Wir aktualisieren diese Hinweise, wenn sich Funktionen, Hosting oder rechtliche Anforderungen ändern. Die jeweils aktuelle Fassung wird auf dieser Seite veröffentlicht.</p></div></section>
     </article>`,
 });
 
@@ -300,7 +304,8 @@ async function build() {
 
   await Promise.all([
     copyFile(path.join(sourceDirectory, "site.css"), path.join(docsDirectory, "assets", "site.css")),
-    copyFile(path.join(publicDirectory, "favicon.svg"), path.join(docsDirectory, "favicon.svg")),
+    copyFile(path.join(publicDirectory, "onepercent-logo.png"), path.join(docsDirectory, "assets", "onepercent-logo.png")),
+    copyFile(path.join(publicDirectory, "favicon.png"), path.join(docsDirectory, "favicon.png")),
     copyFile(path.join(publicDirectory, "og.png"), path.join(docsDirectory, "og.png")),
     writePage("index.html", homePage),
     writePage("support/index.html", supportPage),

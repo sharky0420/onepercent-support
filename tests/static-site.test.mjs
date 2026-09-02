@@ -4,8 +4,16 @@ import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
+import { PNG } from "pngjs";
+
 const projectRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
 const docsDirectory = path.join(projectRoot, "docs");
+const officialLogoPath = path.join(
+  projectRoot,
+  "assets",
+  "branding",
+  "onepercent_logo.png",
+);
 const configuredSiteUrl =
   process.env.ONEPERCENT_SITE_URL ??
   "https://sharky0420.github.io/onepercent-support";
@@ -94,9 +102,22 @@ test("all static pages are well-formed, branded HTML", async () => {
     assert.match(html, /<main>/i);
     assert.match(html, /<footer class="site-footer">/i);
     assert.match(html, /onepercent/);
+    assert.match(
+      html,
+      /<img class="brand-logo" src="[^"]*onepercent-logo\.png" width="34" height="34" alt="">/i,
+    );
+    assert.equal(
+      html.match(/class="brand-logo"/g)?.length,
+      2,
+      `${page.file}: header and footer must use the official logo.`,
+    );
     assert.doesNotMatch(
       html,
       /codex-preview|react-loading-skeleton|vinext-starter|Fokuspfad|QuietTurn|ReRoute/i,
+    );
+    assert.doesNotMatch(
+      html,
+      /brand-arc|brand-pause|pause-bars/i,
     );
     assert.doesNotMatch(html, />\s*Sharky\s*</i);
     assert.doesNotMatch(html, /<script\b/i);
@@ -142,18 +163,33 @@ test("landing, support and privacy content contains release-critical details", a
   ]);
 
   assert.match(home, /<title>onepercent – Pause the impulse\.<\/title>/i);
-  assert.match(home, /Echte Bildschirmzeit/);
+  assert.match(home, /Für iPhone &amp; Android/);
+  assert.match(home, /Fokus und Lernen/);
   assert.match(home, /ohne Tracking/);
+  assert.match(home, /Deutsch und Englisch verfügbar/);
+  assert.match(home, /Dein persönliches 1%/);
 
   assert.match(support, /TestFlight/);
+  assert.match(support, /geschlossenen Google-Play-Test/);
   assert.match(support, /e\.lanez2004@gmail\.com/);
-  assert.match(support, /App Store ID 6801456354/);
-  assert.match(support, /letzten sieben Tage einschließlich heute/);
+  assert.match(support, /Android-Version liest keine Liste installierter Apps/);
+  assert.match(support, /Android benötigt Version 7\.0 oder neuer/);
   assert.match(support, /iOS 16 oder neuer/);
+  assert.match(support, /Whitelist-Fokus/);
+  assert.match(support, /Ocean und Ember/);
+  assert.match(support, /Ab 500 Punkten kannst du 30 Tage Pro aktivieren/);
+  assert.match(support, /kein Schul-Backend/);
+  assert.match(support, /sichere Serverprüfung nötig/);
 
-  assert.match(privacy, /14\. August 2026/);
+  assert.match(privacy, /2\. September 2026/);
   assert.match(privacy, /keine Analyse-SDKs/);
+  assert.match(privacy, /Android-Version liest weder installierte Apps/);
+  assert.match(privacy, /Neustart-Berechtigung/);
   assert.match(privacy, /Screen-Time- und Device-Activity-Komponenten/);
+  assert.match(privacy, /lokal und deterministisch/);
+  assert.match(privacy, /keine Anfrage an einen externen KI-Dienst/);
+  assert.match(privacy, /keine ausschließlich automatisierten Entscheidungen/);
+  assert.match(privacy, /vor einem produktiven Bezahlbetrieb/);
   assert.match(privacy, /Hosting dieser Website über GitHub Pages/);
   assert.match(privacy, /GitHub, Inc\./);
   assert.match(privacy, /GitHub B\.V\./);
@@ -168,17 +204,27 @@ test("landing, support and privacy content contains release-critical details", a
   );
 });
 
-test("metadata, fallback and GitHub Pages control files are complete", async () => {
-  const [home, notFound, robots, sitemap, stylesheet, ogImage] =
+test("metadata, official brand assets and GitHub Pages files are complete", async () => {
+  const [
+    home,
+    notFound,
+    robots,
+    sitemap,
+    stylesheet,
+    officialLogo,
+    publishedLogo,
+  ] =
     await Promise.all([
       readOutput("index.html"),
       readOutput("404.html"),
       readOutput("robots.txt"),
       readOutput("sitemap.xml"),
       readOutput("assets/site.css"),
-      readFile(path.join(docsDirectory, "og.png")),
+      readFile(officialLogoPath),
+      readFile(path.join(docsDirectory, "assets", "onepercent-logo.png")),
       access(path.join(docsDirectory, ".nojekyll")),
-      access(path.join(docsDirectory, "favicon.svg")),
+      access(path.join(docsDirectory, "favicon.png")),
+      access(path.join(docsDirectory, "og.png")),
     ]);
 
   assert.ok(
@@ -205,7 +251,61 @@ test("metadata, fallback and GitHub Pages control files are complete", async () 
   assert.match(stylesheet, /prefers-reduced-motion/);
   assert.match(stylesheet, /@media \(max-width: 620px\)/);
 
-  assert.equal(ogImage.subarray(1, 4).toString("ascii"), "PNG");
-  assert.equal(ogImage.readUInt32BE(16), 1200);
-  assert.equal(ogImage.readUInt32BE(20), 630);
+  assert.deepEqual(
+    publishedLogo,
+    officialLogo,
+    "The website logo must stay byte-identical to the official app logo.",
+  );
+
+  const [faviconData, ogData] = await Promise.all([
+    readFile(path.join(docsDirectory, "favicon.png")),
+    readFile(path.join(docsDirectory, "og.png")),
+  ]);
+  const official = PNG.sync.read(officialLogo);
+  const favicon = PNG.sync.read(faviconData);
+  const ogImage = PNG.sync.read(ogData);
+  assert.equal(favicon.width, 64);
+  assert.equal(favicon.height, 64);
+  assert.equal(ogImage.width, 1200);
+  assert.equal(ogImage.height, 630);
+
+  for (const [x, y] of [
+    [0, 0],
+    [16, 16],
+    [31, 31],
+    [47, 47],
+    [63, 63],
+  ]) {
+    for (let channel = 0; channel < 4; channel += 1) {
+      let total = 0;
+      for (let sourceY = y * 8; sourceY < (y + 1) * 8; sourceY += 1) {
+        for (let sourceX = x * 8; sourceX < (x + 1) * 8; sourceX += 1) {
+          total +=
+            official.data[(sourceY * official.width + sourceX) * 4 + channel];
+        }
+      }
+      assert.equal(
+        favicon.data[(y * favicon.width + x) * 4 + channel],
+        Math.round(total / 64),
+        `Favicon sample ${x},${y} is not derived from the official logo.`,
+      );
+    }
+  }
+
+  const logoLeft = (ogImage.width - official.width) / 2;
+  const logoTop = (ogImage.height - official.height) / 2;
+  for (let y = 0; y < official.height; y += 1) {
+    const officialRow = official.data.subarray(
+      y * official.width * 4,
+      (y + 1) * official.width * 4,
+    );
+    const ogRow = ogImage.data.subarray(
+      ((logoTop + y) * ogImage.width + logoLeft) * 4,
+      ((logoTop + y) * ogImage.width + logoLeft + official.width) * 4,
+    );
+    assert.ok(
+      Buffer.compare(officialRow, ogRow) === 0,
+      `Open-Graph logo row ${y} differs from the official source.`,
+    );
+  }
 });

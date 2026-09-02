@@ -6,7 +6,8 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "build": "node scripts/build-static-site.mjs",
+    "brand:generate": "node scripts/generate-brand-assets.mjs",
+    "build": "npm run brand:generate && node scripts/build-static-site.mjs",
     "test": "npm run build && node --test tests/static-site.test.mjs",
     "lint": "eslint scripts tests",
     "check": "npm run lint && npm test",
@@ -15,7 +16,8 @@
   "devDependencies": {
     "@eslint/js": "9.39.4",
     "eslint": "9.39.4",
-    "globals": "16.4.0"
+    "globals": "16.4.0",
+    "pngjs": "^7.0.0"
   },
   "type": "module"
 }
